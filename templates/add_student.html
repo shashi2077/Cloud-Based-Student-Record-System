@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Add Student</title>
+  <style>
+    body{font-family:Arial, sans-serif; max-width:900px; margin:40px auto; padding:0 16px;}
+    .card{border:1px solid #ddd; border-radius:12px; padding:18px;}
+    input{width:100%; padding:10px; margin:8px 0;}
+    button{padding:10px 14px; cursor:pointer;}
+    .msg{margin:10px 0; padding:10px; border-radius:8px;}
+    .error{background:#ffe6e6;}
+    .success{background:#e8ffe8;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>Add Student</h3>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="msg {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+      <label>Name</label>
+      <input type="text" name="name" placeholder="Student name" required />
+
+      <label>Email</label>
+      <input type="email" name="email" placeholder="student@email.com" required />
+
+      <label>Course</label>
+      <input type="text" name="course" placeholder="Course name" required />
+
+      <button type="submit">Submit</button>
+      <a href="/">Back</a>
+    </form>
+  </div>
+</body>
+</html>
