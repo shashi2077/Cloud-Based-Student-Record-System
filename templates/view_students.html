@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>View Students</title>
+  <style>
+    body{font-family:Arial, sans-serif; max-width:1100px; margin:40px auto; padding:0 16px;}
+    table{width:100%; border-collapse:collapse;}
+    th, td{border:1px solid #ddd; padding:10px;}
+    th{background:#f6f6f6; text-align:left;}
+    .top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+    .msg{margin:10px 0; padding:10px; border-radius:8px;}
+    .error{background:#ffe6e6;}
+    .success{background:#e8ffe8;}
+    form{display:inline;}
+    button{padding:6px 10px; cursor:pointer;}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <h3>Student List</h3>
+    <div>
+      <a href="/add">+ Add Student</a>
+      <a href="/">Home</a>
+    </div>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="msg {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Course</th>
+      <th>Created</th>
+      <th>Action</th>
+    </tr>
+    {% for s in students %}
+    <tr>
+      <td>{{ s.id }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.email }}</td>
+      <td>{{ s.course }}</td>
+      <td>{{ s.created_at }}</td>
+      <td>
+        <form method="POST" action="/delete/{{ s.id }}" onsubmit="return confirm('Delete this record?')">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
